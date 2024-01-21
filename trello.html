@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+
+    body{
+
+        height:100dvh;
+        box-sizing:border-box;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+    }
+    .container{
+        height:200px;
+        width:1000px;
+        display:flex;
+        justify-content:space-between;
+        gap:10px;
+    }
+    .a{
+        height:100%;
+        width:33%;
+        background:lightgrey;
+        border-radius:10px;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-around;
+    }
+    .a1{
+        height:100%;
+        width:33%;
+        background:lightgrey;
+        border-radius:10px;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-around;
+    }
+    #b{
+        height:50%;
+        width:33%;
+        background:lightgrey;
+        border-radius:10px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:space-around;
+    }
+
+    .c{
+        height:25%;
+        width:33%;
+        background:lightgrey;
+        border-radius:10px;
+        display:flex;
+        align-items:Center;
+        
+    }
+
+    .header-container{
+        width:100%;
+        display:flex;
+        justify-content:space-between;
+    }
+    .a > div{
+        margin-left:17.5px;
+    }
+    .a1 > div{
+        margin-left:17.5px;
+    }
+    #b > div{
+        margin-left:35px;
+    }
+    .c > div{
+        margin-left:17.5px;
+    }
+    .fa-ellipsis{
+        margin-right:34px;
+    }
+    .button-container{
+        width:82.5%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+    }
+    .e{
+        background:lightgrey;
+        border:none;
+    }
+    .f{
+        background:lightgrey;
+        border:none;
+    }
+    .g{
+        background:lightgrey;
+        border:none;
+    }
+    .New-List{
+        background:lightgrey;
+        border:none;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+
+      <div class="a">
+
+        <div class="header-container">
+
+         <h>TODO</h>
+         <i class="fa-solid fa-ellipsis"></i>
+        </div>
+        
+        <div class="card" draggable="true">Build Js</div>
+        <div class="card" draggable="true">Build React</div>
+        
+        <div class="header-container">
+
+         <div class="button-container"><button data-id="0" data-img="js/tarkan.png" class="e">+Add a card</button><i class="fa-regular fa-images"></i></div>
+
+        </div>
+
+      </div>
+        
+       
+
+      <div class="a1">
+
+        <div class="header-container">
+        
+        <h>In Progress</h>
+        <i class="fa-solid fa-ellipsis"></i>
+        </div>
+
+        <div class="card" draggable="true">Build HTML</div>
+        <div class="card" draggable="true">Build CSS</div>
+        
+        <div class="header-container">
+
+        <div class="button-container"><button data-id="1" data-img="js/muratboz.jpg" class="f" >+Add a card</button><i class="fa-regular fa-images"></i></div>
+
+        </div>
+
+      </div>
+ 
+      <div id="b">
+        
+        <div class="header-container">
+
+        <h>Done</h>
+        <i class="fa-solid fa-ellipsis"></i>
+        </div>
+
+        <div class="header-container">
+
+        <div class="button-container"><button data-id="2" data-img="js/ibrahimtatlises.jpg" class="g">+Add a card</button><i class="fa-regular fa-images"></i></div>
+   
+        </div>
+
+      </div>
+
+      <div class="c">
+       
+        <div class="header-container">
+
+        <h class="button-container"><button class="New-List">+ Add another list</button></h>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <script>
+       
+       const buttons = document.querySelectorAll("button");
+
+       let cards = document.getElementsByClassName("card");
+       
+       let rightbox = document.getElementById("b");
+       
+       let leftbox = document.getElementsByClassName("a");
+       
+       for(card of cards){
+        card.addEventListener("dragstart",function(e){
+            let selected = e.target;
+
+            rightbox.addEventListener("dragover", function(e){
+                e.preventDefault();
+            });
+            rightbox.addEventListener("drop", function(e){
+                rightbox.appendChild(selected);
+                // selected = null;
+            });
+
+            // leftbox.addEventListener("dragover", function(e){
+            //     e.preventDefault();
+            // });
+            // leftbox.addEventListener("drop", function(e){
+            //     left.appendChild(selected);
+            //     // selected = null;
+            // });
+
+           
+        })
+     }
+       buttons.forEach(button => {
+ 
+        button.addEventListener("click", clickHandler);
+
+       })
+
+       function clickHandler (e) {
+
+       const id = e.target.getAttribute("data-id");
+       const img = e.target.getAttribute("data-img");
+       const classic = e.target.getAttribute("class");
+    //    const list = e.target.getAttribute("new classlist")
+       const existingBasket = localStorage.getItem("basket");
+
+       const existingBasketArr = JSON.parse(existingBasket) ?? [];
+
+       if( !existingBasketArr.includes(img)) {
+        existingBasketArr.push(img);
+
+        e.target.innerText = "added";
+       }
+       else if(!existingBasketArr.includes(classic)) {
+        existingBasketArr.push(classic);
+       
+        e.target.innerText = "added";
+        }
+        // else if(!existingBasketArr.includes(list)){
+    //     existingBasketArr.push(list);
+       
+    //     e.target.innerText = "added";
+    //    }
+    //    const existingBasketArr = JSON.parse(existingBasket); ?? [];
+        console.log(id);
+        console.log(img);
+        console.log(classic);
+       localStorage.setItem("basket", JSON.stringify(existingBasketArr));
+       }
+
+    </script>
+
+</body>
+
+</html>
